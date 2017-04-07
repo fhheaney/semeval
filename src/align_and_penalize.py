@@ -65,21 +65,21 @@ class AlignAndPenalize(object):
                      'NN', 'NNS', 'NNP', 'NNPS',   # nouns
                      'PRP', 'PRP$', 'CD')  # pronouns, numbers
     pronouns = {
-        'me': 'i', 'my': 'i',
-        'your': 'you',
-        'him': 'he', 'his': 'he',
-        'her': 'she',
-        'us': 'we', 'our': 'we',
-        'them': 'they', 'their': 'they',
+        'mi': 'yo', 'mí': 'yo', 'me': 'yo',
+        'su': 'usted', 'te': 'tú',
+        'se': 'usted',
+        'nos': 'nosotros',
+        'nuestra': 'nosotros', 'nuestro': 'nosotros'
+	'os': 'vosotros', 'vos': 'vosotros'
     }
 
     question_starters = set([
-        'is', 'does', 'do', 'what', 'where', 'how', 'why',
+        'qué', 'dónde', 'cual', 'cómo', 'como', 'quién'
     ])
 
     written_numbers = {
-        "zero": 0, "one": 1, "two": 2, "three": 3, "four": 4, "five": 5,
-        "six": 6, "seven": 7, "eight": 8, "nine": 9, "ten": 10}
+        "cero": 0, "uno": 1, "dos": 2, "tres": 3, "cuatro": 4, "cinco": 5,
+        "seis": 6, "siete": 7, "ocho": 8, "nueve": 9, "diez": 10}
 
     def __init__(self, sen1, sen2, tags1, tags2, map_tags, wrapper,
                  sim_function, wn_cache, hunspell_wrapper):
