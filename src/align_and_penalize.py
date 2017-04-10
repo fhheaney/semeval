@@ -834,7 +834,7 @@ class LSAWrapper(object):
 class SynsetWrapper(object):
 
     punct_re = re.compile(r'[\(\)]', re.UNICODE)
-    nltk_sw = set(nltk_stopwords.words('english')) - set(
+    nltk_sw = set(nltk_stopwords.words('spanish')) - set(
         AlignAndPenalize.pronouns.iterkeys())
 
     def __init__(self, synset):
@@ -1003,7 +1003,7 @@ class STSWrapper(object):
 
     @staticmethod
     def get_stopwords():
-        nltk_sw = set(nltk_stopwords.words('english')) - set(
+        nltk_sw = set(nltk_stopwords.words('spanish')) - set(
             AlignAndPenalize.pronouns.iterkeys())
         return nltk_sw.union(STSWrapper.custom_stopwords)
 

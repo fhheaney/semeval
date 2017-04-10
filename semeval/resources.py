@@ -38,7 +38,7 @@ class Resources(object):
     }
 
     stopwords = set(
-        nltk.corpus.stopwords.words('english')) - set(pronouns.iterkeys())
+        nltk.corpus.stopwords.words('spanish')) - set(pronouns.iterkeys())
     twitter_cache = {}
     _global_freqs = None
     _adverb_cache = {}
