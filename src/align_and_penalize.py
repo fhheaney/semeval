@@ -1081,21 +1081,21 @@ class STSWrapper(object):
 
     def read_freqs(self, ifn=__EN_FREQ_PATH__):
         global global_freqs
-        if len(global_freqs) > 0:
+        #if len(global_freqs) > 0:
             #logging.info('Skipping global freq reading')
-            return
-        with open(ifn) as f:
-            for l in f:
-                try:
-                    fd = l.decode('utf8').strip().split(' ')
-                    word = fd[1]
-                except:
-                    logging.warning(
-                        "error reading line in freq data: {0}".format(repr(l)))
-                    continue
-                logfreq = math.log(int(fd[0]) + 2)
-                #we add 2 so we can calculate inverse logfreq for OOVs
-                global_freqs[word] = logfreq
+        return
+        #with open(ifn) as f:
+        #    for l in f:
+        #        try:
+        #            fd = l.decode('utf8').strip().split(' ')
+        #            word = fd[1]
+        #        except:
+        #            logging.warning(
+        #                "error reading line in freq data: {0}".format(repr(l)))
+        #            continue
+        #        logfreq = math.log(int(fd[0]) + 2)
+        #        #we add 2 so we can calculate inverse logfreq for OOVs
+        #        global_freqs[word] = logfreq
 
     def is_frequent_adverb(self, word, pos):
         answer = self.frequent_adverbs_cache.setdefault(
