@@ -20,12 +20,13 @@ import nltk
 from nltk.corpus import wordnet
 
 from nltk.corpus import stopwords as nltk_stopwords
-from nltk.tag.hunpos import HunposTagger
+from nltk.parse.malt import MaltParser
 
-from hunspell_wrapper import HunspellWrapper
+from hunspell_wrapper import HunspellWrapper ##unsure if this will work for spanish 
 assert HunspellWrapper  # silence pyflakes
 
-__EN_FREQ_PATH__ = '/mnt/store/home/hlt/Language/English/Freq/umbc_webbase.unigram_freq'  # nopep8
+##The directory English does not have contents in it currently. 
+#__EN_FREQ_PATH__ = '/mnt/store/home/hlt/Language/English/Freq/umbc_webbase.unigram_freq'  # nopep8
 feats = []
 global_freqs = {}
 
@@ -1081,21 +1082,21 @@ class STSWrapper(object):
 
     def read_freqs(self, ifn=__EN_FREQ_PATH__):
         global global_freqs
-        if len(global_freqs) > 0:
+        #if len(global_freqs) > 0:
             #logging.info('Skipping global freq reading')
-            return
-        with open(ifn) as f:
-            for l in f:
-                try:
-                    fd = l.decode('utf8').strip().split(' ')
-                    word = fd[1]
-                except:
-                    logging.warning(
-                        "error reading line in freq data: {0}".format(repr(l)))
-                    continue
-                logfreq = math.log(int(fd[0]) + 2)
-                #we add 2 so we can calculate inverse logfreq for OOVs
-                global_freqs[word] = logfreq
+        return
+        #with open(ifn) as f:
+        #    for l in f:
+        #        try:
+        #            fd = l.decode('utf8').strip().split(' ')
+        #            word = fd[1]
+        #        except:
+        #            logging.warning(
+        #                "error reading line in freq data: {0}".format(repr(l)))
+        #            continue
+        #        logfreq = math.log(int(fd[0]) + 2)
+        #        #we add 2 so we can calculate inverse logfreq for OOVs
+        #        global_freqs[word] = logfreq
 
     def is_frequent_adverb(self, word, pos):
         answer = self.frequent_adverbs_cache.setdefault(
