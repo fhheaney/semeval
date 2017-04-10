@@ -20,12 +20,13 @@ import nltk
 from nltk.corpus import wordnet
 
 from nltk.corpus import stopwords as nltk_stopwords
-from nltk.tag.hunpos import HunposTagger
+from nltk.parse.malt import MaltParser
 
-from hunspell_wrapper import HunspellWrapper
+from hunspell_wrapper import HunspellWrapper ##unsure if this will work for spanish 
 assert HunspellWrapper  # silence pyflakes
 
-__EN_FREQ_PATH__ = '/mnt/store/home/hlt/Language/English/Freq/umbc_webbase.unigram_freq'  # nopep8
+##The directory English does not have contents in it currently. 
+#__EN_FREQ_PATH__ = '/mnt/store/home/hlt/Language/English/Freq/umbc_webbase.unigram_freq'  # nopep8
 feats = []
 global_freqs = {}
 
@@ -971,7 +972,7 @@ class STSWrapper(object):
         self.read_freqs()
         self.sense_cache = {}
         self.frequent_adverbs_cache = {}
-        self.hunpos_tagger = STSWrapper.get_hunpos_tagger()
+        self.maltparse_tagger = STSWrapper.get_maltparse_tagger()
         self.html_parser = HTMLParser.HTMLParser()
         if global_flags['filter_stopwords']:
             self.stopwords = STSWrapper.get_stopwords()
@@ -995,11 +996,10 @@ class STSWrapper(object):
         return self._antonym_cache[key]
 
     @staticmethod
-    def get_hunpos_tagger():
-        hunmorph_dir = os.environ['HUNMORPH_DIR']
-        hunpos_binary = os.path.join(hunmorph_dir, 'hunpos-tag')
-        hunpos_model = os.path.join(hunmorph_dir, 'en_wsj.model')
-        return HunposTagger(hunpos_model, hunpos_binary)
+    def get_maltparse_tagger():
+        maltparse_dir = os.environ['MALTPARSE_DIR']
+        maltparse_model = os.path.join(maltparse_dir, 'TRL_maltparser_modul_ES.rar') ##Provided by IULA asa pretrained modelbut needs to be .mco filenot rar. 
+	return MaltParser(maltparse_dir)
 
     @staticmethod
     def get_stopwords():
