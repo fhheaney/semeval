@@ -20,12 +20,13 @@ import nltk
 from nltk.corpus import wordnet
 
 from nltk.corpus import stopwords as nltk_stopwords
-from nltk.tag.hunpos import HunposTagger
+from nltk.parse.malt import MaltParser
 
-from hunspell_wrapper import HunspellWrapper
+from hunspell_wrapper import HunspellWrapper ##unsure if this will work for spanish 
 assert HunspellWrapper  # silence pyflakes
 
-__EN_FREQ_PATH__ = '/mnt/store/home/hlt/Language/English/Freq/umbc_webbase.unigram_freq'  # nopep8
+##The directory English does not have contents in it currently. 
+#__EN_FREQ_PATH__ = '/mnt/store/home/hlt/Language/English/Freq/umbc_webbase.unigram_freq'  # nopep8
 feats = []
 global_freqs = {}
 
@@ -833,7 +834,7 @@ class LSAWrapper(object):
 class SynsetWrapper(object):
 
     punct_re = re.compile(r'[\(\)]', re.UNICODE)
-    nltk_sw = set(nltk_stopwords.words('english')) - set(
+    nltk_sw = set(nltk_stopwords.words('spanish')) - set(
         AlignAndPenalize.pronouns.iterkeys())
 
     def __init__(self, synset):
@@ -971,7 +972,7 @@ class STSWrapper(object):
         self.read_freqs()
         self.sense_cache = {}
         self.frequent_adverbs_cache = {}
-        self.hunpos_tagger = STSWrapper.get_hunpos_tagger()
+        self.maltparse_tagger = STSWrapper.get_maltparse_tagger()
         self.html_parser = HTMLParser.HTMLParser()
         if global_flags['filter_stopwords']:
             self.stopwords = STSWrapper.get_stopwords()
@@ -995,15 +996,14 @@ class STSWrapper(object):
         return self._antonym_cache[key]
 
     @staticmethod
-    def get_hunpos_tagger():
-        hunmorph_dir = os.environ['HUNMORPH_DIR']
-        hunpos_binary = os.path.join(hunmorph_dir, 'hunpos-tag')
-        hunpos_model = os.path.join(hunmorph_dir, 'en_wsj.model')
-        return HunposTagger(hunpos_model, hunpos_binary)
+    def get_maltparse_tagger():
+        maltparse_dir = os.environ['MALTPARSE_DIR']
+        maltparse_model = os.path.join(maltparse_dir, 'TRL_maltparser_modul_ES.rar') ##Provided by IULA asa pretrained modelbut needs to be .mco filenot rar. 
+	return MaltParser(maltparse_dir)
 
     @staticmethod
     def get_stopwords():
-        nltk_sw = set(nltk_stopwords.words('english')) - set(
+        nltk_sw = set(nltk_stopwords.words('spanish')) - set(
             AlignAndPenalize.pronouns.iterkeys())
         return nltk_sw.union(STSWrapper.custom_stopwords)
 
@@ -1081,21 +1081,21 @@ class STSWrapper(object):
 
     def read_freqs(self, ifn=__EN_FREQ_PATH__):
         global global_freqs
-        if len(global_freqs) > 0:
+        #if len(global_freqs) > 0:
             #logging.info('Skipping global freq reading')
-            return
-        with open(ifn) as f:
-            for l in f:
-                try:
-                    fd = l.decode('utf8').strip().split(' ')
-                    word = fd[1]
-                except:
-                    logging.warning(
-                        "error reading line in freq data: {0}".format(repr(l)))
-                    continue
-                logfreq = math.log(int(fd[0]) + 2)
-                #we add 2 so we can calculate inverse logfreq for OOVs
-                global_freqs[word] = logfreq
+        return
+        #with open(ifn) as f:
+        #    for l in f:
+        #        try:
+        #            fd = l.decode('utf8').strip().split(' ')
+        #            word = fd[1]
+        #        except:
+        #            logging.warning(
+        #                "error reading line in freq data: {0}".format(repr(l)))
+        #            continue
+        #        logfreq = math.log(int(fd[0]) + 2)
+        #        #we add 2 so we can calculate inverse logfreq for OOVs
+        #        global_freqs[word] = logfreq
 
     def is_frequent_adverb(self, word, pos):
         answer = self.frequent_adverbs_cache.setdefault(
