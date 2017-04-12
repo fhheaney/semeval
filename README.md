@@ -1,7 +1,7 @@
 semeval
 =======
 
-Semantic Textual Similarity (STS) system created by the MathLingBudapest team to participate in Tasks 1 and 2 of Semeval2015 and modified for WPI 2017 Major Qualifying Project in Computer Science by Fiona Heaney (fhheaney) and Matt Zielonko (zoinks27) 
+Semantic Textual Similarity (STS) system created by the MathLingBudapest team to participate in Tasks 1 and 2 of Semeval2015 and modified as part of a WPI 2017 Major Qualifying Project in Computer Science by Fiona Heaney (fhheaney) and Matt Zielonko (zoinks27) 
 
 
 # Dependencies
