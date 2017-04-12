@@ -1,9 +1,7 @@
 semeval
 =======
 
-Semantic Textual Similarity (STS) system created by the MathLingBudapest team to participate in Tasks 1 and 2 of Semeval2015
-
-
+Semantic Textual Similarity (STS) system created by the MathLingBudapest team to participate in Tasks 1 and 2 of Semeval2015 and modified for WPI 2017 Major Qualifying Project in Computer Science by Fiona Heaney (fhheaney) and Matt Zielonko (zoinks27) 
 
 
 # Dependencies
@@ -14,7 +12,7 @@ Then run
 sudo python setup.py install
 ```
 
-Our pipeline relies on the hunpos tool for part-of-speech tagging, which can be downloaded from [this page](https://code.google.com/p/hunpos/downloads/list). All you need to do is download and place the binary `hunpos-tag` and the English model `en_wsj.model` in the directory semeval/hunpos (or change the value of `hunpos_dir` in the configuration file to point to a different location).
+Our pipeline relies on the TreeTagger tool for part-of-speech tagging, which can be downloaded from [this page](http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/). All you need to do is download and place the tagger and Spanish parameter in the directory semeval/treetagger (or change the value of `treetagger_dir` in the configuration file to point to a different location).
 
 In order to run the precompiled binaries on a 64-bit machine, you should download the 32-bit C library:
 ```
@@ -38,35 +36,15 @@ The STS system can be invoked from the repo's base directory using:
 
 ```
     cat sts_test.txt | python semeval/paraphrases.py -c configs/sts.cfg > out
-    cat twitter_test.txt | python semeval/paraphrases.py -c configs/twitter.cfg > out
 ```
 
-These test files follow the format of the Semeval 2015 Tasks 1 and 2, respectively.
+This test file follows the format of the Semeval 2014 Task 10.
 
 To use the machine similarity component, run
 
 ```
 cat sts_test.txt | python semeval/paraphrases.py -c configs/sts_machine.cfg > out
 ```
-
-# Regression
-
-## Regression used for Twitter data
-
-Specifying regression mode in the final\_score section uses a regression (see `configs/twimash.cfg`).
-This mode needs to know the location of the train and test files, which are specified in the regression section:
-
-    [regression]
-    train: data/train.data
-    train_labels: data/train.labels
-    test: data/test.data
-    gold: data/test.label
-    binary_labels: true
-    outfile: data/predicted.labels
-
-Specifying a gold file is optional, the rest of the options are mandatory.
-If you specify a gold file, precision, recall and F-score are computed and printed to stdout.
-
 
 ## Regression used for Task 2 STS data
 
@@ -90,7 +68,7 @@ https://github.com/kornai/pymachine/tree/3d936067e775fc8aa56c06388eb328ef2c6efe7
 
 ## Contact
 This repository is maintained by Judit Ács and Gábor Recski. Questions, suggestions, bug reports, etc. are very welcome and can be sent by email to recski at mokk bme hu.
-
+Any questions regarding changes made in the forked version of this repo may be firected towards Fiona Heaney (fhheaney at wpi dot edu) and Matt Zielonko (mlzielonko at wpi dot edu)
 
 ### Publications
 If you use the `semeval` module, please cite:
