@@ -35,7 +35,7 @@ python -m nltk.downloader stopwords wordnet
 The STS system can be invoked from the repo's base directory using:
 
 ```
-    cat sts_test.txt | python semeval/paraphrases.py -c configs/sts.cfg > out
+    cat spanish_sts_test.txt | python semeval/paraphrases.py -c configs/sts.cfg > out
 ```
 
 This test file follows the format of the Semeval 2014 Task 10.
@@ -43,7 +43,7 @@ This test file follows the format of the Semeval 2014 Task 10.
 To use the machine similarity component, run
 
 ```
-cat sts_test.txt | python semeval/paraphrases.py -c configs/sts_machine.cfg > out
+cat spanish_sts_test.txt | python semeval/paraphrases.py -c configs/sts_machine.cfg > out
 ```
 
 ## Regression used for Task 2 STS data
